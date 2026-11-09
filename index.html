@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammed Faahiz | Full Stack Developer | Coming Soon</title>
+<meta name="description" content="Mohammed Faahiz, Full Stack Developer. My new portfolio is on its way.">
+<style>
+  :root {
+    --bg: #0b0b17;
+    --accent: #7c5cff;
+    --accent2: #00d4ff;
+    --text: #f1f1f8;
+    --muted: #9a9ab5;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    overflow-x: hidden;
+    text-align: center;
+  }
+
+  /* Animated gradient blobs */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.45;
+    z-index: 0;
+    animation: float 14s ease-in-out infinite;
+  }
+  .blob.one { width: 420px; height: 420px; background: var(--accent); top: -100px; left: -100px; }
+  .blob.two { width: 380px; height: 380px; background: var(--accent2); bottom: -120px; right: -80px; animation-delay: -5s; }
+  .blob.three { width: 280px; height: 280px; background: #ff4fa3; top: 50%; left: 55%; animation-delay: -9s; opacity: 0.3; }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(60px, 40px) scale(1.15); }
+    66% { transform: translate(-40px, 70px) scale(0.9); }
+  }
+
+  canvas#particles { position: fixed; inset: 0; z-index: 1; }
+
+  main {
+    position: relative;
+    z-index: 2;
+    padding: 2rem 1.25rem;
+    max-width: 760px;
+    width: 100%;
+    animation: fadeUp 1.2s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    backdrop-filter: blur(6px);
+    background: rgba(255,255,255,0.04);
+  }
+  .badge span { color: var(--accent2); animation: pulse 1.6s infinite; display: inline-block; }
+  @keyframes pulse { 50% { opacity: 0.2; } }
+
+  .hello { margin-top: 1.6rem; font-size: clamp(1rem, 3vw, 1.3rem); color: var(--muted); }
+
+  h1 {
+    font-size: clamp(2.4rem, 8vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0.6rem 0 0.5rem;
+    background: linear-gradient(120deg, var(--accent), var(--accent2), #ff4fa3, var(--accent));
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 6s ease infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .role {
+    font-size: clamp(1.1rem, 3.5vw, 1.6rem);
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .typing {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    color: var(--muted);
+    min-height: 2rem;
+    margin-top: 1rem;
+  }
+  .typing .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: var(--accent2);
+    margin-left: 3px;
+    vertical-align: middle;
+    animation: blink 0.8s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Progress bar */
+  .progress-wrap { margin: 2.2rem auto 1.4rem; max-width: 420px; }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.5rem;
+  }
+  .bar {
+    height: 8px; border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%; width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), #ff4fa3);
+    background-size: 200% 100%;
+    animation: slide 2s linear infinite;
+    transition: width 0.4s ease;
+  }
+  @keyframes slide { to { background-position: -200% 0; } }
+
+  /* Tech chips */
+  .chips {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 0.6rem; margin: 1.6rem 0 2.2rem;
+  }
+  .chip {
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    animation: bob 3.5s ease-in-out infinite;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .chip:hover { border-color: var(--accent2); color: var(--accent2); }
+  .chip:nth-child(2n) { animation-delay: -1s; }
+  .chip:nth-child(3n) { animation-delay: -2s; }
+  .chip:nth-child(5n) { animation-delay: -0.5s; }
+  @keyframes bob { 50% { transform: translateY(-7px); } }
+
+  form {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+  }
+  input[type="email"] {
+    flex: 1 1 240px;
+    max-width: 340px;
+    padding: 0.9rem 1.2rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  input[type="email"]:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(124,92,255,0.25); }
+  button {
+    padding: 0.9rem 1.8rem;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(124,92,255,0.45); }
+  #msg { min-height: 1.4rem; font-size: 0.9rem; color: var(--accent2); }
+
+  .socials { margin-top: 1.6rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .socials a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: color 0.3s, border-color 0.3s, transform 0.3s;
+  }
+  .socials a:hover { color: var(--text); border-color: var(--accent); transform: translateY(-3px); }
+
+  footer { margin-top: 2rem; font-size: 0.8rem; color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
+  <canvas id="particles"></canvas>
+
+  <main>
+    <div class="badge"><span>●</span> Portfolio under construction</div>
+
+    <p class="hello">Hello, I'm</p>
+    <h1>Mohammed Faahiz</h1>
+    <div class="role">Full Stack Developer</div>
+
+    <p class="typing"><span id="typed"></span><span class="cursor"></span></p>
+
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Building something great</span><span id="pct">0%</span></div>
+      <div class="bar"><div class="bar-fill" id="fill"></div></div>
+    </div>
+
+    <div class="chips">
+      <span class="chip">.NET</span>
+      <span class="chip">Python</span>
+      <span class="chip">React</span>
+      <span class="chip">Angular</span>
+      <span class="chip">Azure</span>
+      <span class="chip">SQLSERVER</span>
+      <span class="chip">RabbitMQ</span>
+      <span class="chip">Docker</span>
+      <span class="chip">REST APIs</span>
+      <span class="chip">Redis</span>
+    </div>
+
+    <form id="notifyForm">
+      <input type="email" id="email" placeholder="Enter your email for updates" required>
+      <button type="submit">Notify Me</button>
+    </form>
+    <div id="msg"></div>
+
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/mohammedfaahiz" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/mohammedfaahiz" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:mohdfaahiz3565@gmail.com">Email</a>
+    </div>
+
+    <footer>&copy; <span id="year"></span> Mohammed Faahiz. All rights reserved.</footer>
+  </main>
+
+<script>
+  const PHRASES = [
+    "I build web apps from front end to back end.",
+    "My new portfolio is being crafted.",
+    "Good things take time. Stay tuned!"
+  ];
+
+  // Typing effect
+  const typedEl = document.getElementById("typed");
+  let p = 0, c = 0, deleting = false;
+  function type() {
+    const text = PHRASES[p];
+    typedEl.textContent = text.slice(0, c);
+    if (!deleting && c < text.length) { c++; setTimeout(type, 60); }
+    else if (!deleting) { deleting = true; setTimeout(type, 1500); }
+    else if (c > 0) { c--; setTimeout(type, 30); }
+    else { deleting = false; p = (p + 1) % PHRASES.length; setTimeout(type, 400); }
+  }
+  type();
+
+  // Animated progress bar (decorative loop, no real date)
+  const fill = document.getElementById("fill");
+  const pct = document.getElementById("pct");
+  let progress = 0;
+  function bump() {
+    progress += Math.random() * 7 + 2;
+    if (progress >= 92) progress = 92 - Math.random() * 20;
+    progress = Math.max(10, progress);
+    fill.style.width = progress + "%";
+    pct.textContent = Math.round(progress) + "%";
+    setTimeout(bump, 1400);
+  }
+  bump();
+
+  // Form (front-end only; connect Formspree, EmailJS, etc. to collect emails)
+  document.getElementById("notifyForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    document.getElementById("msg").textContent = "Thanks! I'll let " + email + " know when I'm live.";
+    e.target.reset();
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Particle background
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+  let W, H, particles = [];
+  const mouse = { x: null, y: null };
+
+  function resize() {
+    W = canvas.width = innerWidth;
+    H = canvas.height = innerHeight;
+    particles = Array.from({ length: Math.min(90, Math.floor(W * H / 16000)) }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
+      r: Math.random() * 2 + 1
+    }));
+  }
+  addEventListener("resize", resize);
+  addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  addEventListener("mouseleave", () => { mouse.x = mouse.y = null; });
+  resize();
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (let i = 0; i < particles.length; i++) {
+      const a = particles[i];
+      a.x += a.vx; a.y += a.vy;
+      if (a.x < 0 || a.x > W) a.vx *= -1;
+      if (a.y < 0 || a.y > H) a.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.7)";
+      ctx.fill();
+
+      for (let j = i + 1; j < particles.length; j++) {
+        const b = particles[j];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < 120) {
+          ctx.strokeStyle = `rgba(124,92,255,${1 - d / 120})`;
+          ctx.lineWidth = 0.6;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      if (mouse.x !== null) {
+        const d = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+        if (d < 150) {
+          ctx.strokeStyle = `rgba(0,212,255,${1 - d / 150})`;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
